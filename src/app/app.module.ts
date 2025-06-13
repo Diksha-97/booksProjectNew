@@ -8,8 +8,9 @@ import { LoginModule } from './pages/login/login.module';
 import { FormsModule, NgModel } from '@angular/forms';
 import {  HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { HomeComponent } from './pages/home/home.component';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomeComponent],
   imports: [BrowserModule, AppRoutingModule, LayoutModule, LoginModule,
     HttpClientModule,FormsModule
     

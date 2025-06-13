@@ -1,13 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
+import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
-  {path:'header',component:HeaderComponent}
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [{ path: 'header', component: HeaderComponent },
+      
+    ],
+  },
+  // {path:'header',component:HeaderComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class LayoutRoutingModule { }
+export class LayoutRoutingModule {}
