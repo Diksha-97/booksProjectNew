@@ -1,0 +1,58 @@
+<p>login works!</p>
+<div>
+  <h2>Login</h2>
+  <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+    <label for="username">Username:</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      [(ngModel)]="loginObj.email"
+      #userCtrl="ngModel"
+      required
+      minlength="5"
+    />
+    <br /><br />
+
+    <!-- Required error -->
+    <div
+      *ngIf="userCtrl.errors?.['required'] && userCtrl.touched"
+      style="color: red"
+    >
+      This field is required.
+    </div>
+
+    <!-- Minlength error -->
+    <div
+      *ngIf="userCtrl.errors?.['minlength'] && userCtrl.touched"
+      style="color: red"
+    >
+      Minimum 5 characters required.
+    </div>
+
+    <label for="password">Password:</label>
+    <input
+      type="password"
+      id="password"
+      #passCtrl="ngModel"
+      [(ngModel)]="loginObj.password"
+      name="password"
+      minlength="5"
+      required
+    /><br /><br />
+
+    <div
+      *ngIf="passCtrl.errors?.['required'] && passCtrl.touched"
+      style="color: red"
+    >
+      Password is required
+    </div>
+    <div
+      *ngIf="passCtrl.errors?.['minlength'] && passCtrl.touched"
+      style="color: red"
+    >
+      Minimum 5 digit is required
+    </div>
+    <button type="submit">Login</button>
+  </form>
+</div>

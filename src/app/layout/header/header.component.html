@@ -1,0 +1,172 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a
+      class="nav-link"
+      [class.active]="activeTab === 'tab1'"
+      (click)="selectTab('tab1')"
+      href="javascript:void(0)"
+      >Details</a
+    >
+  </li>
+  <li class="nav-item">
+    <a
+      class="nav-link"
+      [class.active]="activeTab === 'tab2'"
+      (click)="this.action='ENTRY' ;selectTab('tab2')"
+      href="javascript:void(0)"
+      >Entry</a
+    >
+  </li>
+</ul>
+
+<!-- Tab content -->
+<div *ngIf="activeTab === 'tab1'">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">id</th>
+        <th scope="col">title</th>
+        <th scope="col">genre</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of books">
+        <td scope="row">{{ item._id }}</td>
+        <td scope="row">{{ item.author }}</td>
+        <td scope="row">{{ item.genre }}</td>
+        <td scope="row">{{ item.title }}</td>
+        <td>
+          <button class="btn btn-warning" (click)="updateBook(item)">
+            Edit</button
+          >&nbsp;&nbsp;
+          <button
+            class="btn btn-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            (click)="deleteBook(item)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="books.length == 0">
+        No data Found
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="activeTab === 'tab2'">
+  <div class="container">
+    <div class="p-5 w-50">
+      <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Title </label>
+          <input
+            name="title"
+            type="text"
+            class="form-control"
+            id="exampleInputtitle1"
+            aria-describedby="titleHelp"
+            [(ngModel)]="bookObj.title"
+            #titleCtrl="ngModel"
+            minlength="3"
+            required
+          />
+          <div
+            *ngIf="titleCtrl.touched && titleCtrl.errors?.['required']"
+            class="text-danger"
+          >
+            Title is Required
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Genere</label>
+          <input
+            type="text"
+            class="form-control"
+            id="exampleInputPassword1"
+            name="genre"
+            [(ngModel)]="bookObj.genre"
+            #genreCtrl="ngModel"
+            required
+          />
+          <div
+            *ngIf="genreCtrl.touched && genreCtrl.errors?.['required']"
+            class="text-danger"
+          >
+            Genere is Required
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword3" class="form-label">Author</label>
+          <input
+            type="text"
+            class="form-control"
+            id="exampleInputPassword1"
+            name="author"
+            [(ngModel)]="bookObj.author"
+            #authorCtrl="ngModel"
+            required
+          />
+          <div
+            *ngIf="authorCtrl.touched && authorCtrl.errors?.['required']"
+            class="text-danger"
+          >
+            Author is Required
+          </div>
+        </div>{{action}}
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="myForm.invalid"
+        >
+          {{this.action=='ENTRY'?'SUBMIT':'EDIT'}}</button
+        >&nbsp;&nbsp;
+        <!-- <button
+          type="submit"
+          class="btn btn-warning"
+        *ngIf="this.action=='UPDATE'"
+        >
+          Update
+        </button>&nbsp;&nbsp; -->
+
+        <button type="reset" class="btn btn-danger" (click)="reset()">
+          Reset</button
+        >&nbsp;&nbsp;
+      </form>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">...</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" (click)="deletBookApi()">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
