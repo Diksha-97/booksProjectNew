@@ -7,11 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    children: [{ path: 'header', component: HeaderComponent },
+    children: [{ path: 'home', component: HeaderComponent },
       
     ],
   },
-  // {path:'header',component:HeaderComponent},
+   {path:'home',component:HeaderComponent},
 ];
 
 @NgModule({
